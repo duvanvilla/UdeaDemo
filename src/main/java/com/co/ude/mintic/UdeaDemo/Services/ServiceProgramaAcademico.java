@@ -116,4 +116,9 @@ public class ServiceProgramaAcademico {
         List <EntityPersona> List = repositoryPersona.findAll(); //findAll lista todos los registro y retorna un objeto de tipo lista
         return List;
     }
+
+    public Boolean borrarPersona(Persona persona){
+        listaP.remove(persona);
+        return Boolean.TRUE;
+    }
 }

@@ -111,6 +111,9 @@ public class ControllerProgramaAcademico {
      */
     @PutMapping (path = "/udea/mintic/actualizarPersona", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity <Persona> actualizarPersona(@RequestParam int id, String nombreModificado){
+        // El endpoint completo cuando se usa @RequestParam se termina con ? seguido por el nombre de
+        // la variable, en este caso id, seguido = y el valor de ese id, y si lleva otra variable se
+        // escribe & y repite nombre de variable = y valor.
         System.out.println("- Ingresó al método actualizarPersona con ID y nuevo nombre del Controller");
         Persona p = serviceProgramaAcademico.buscarPersona(id);
         p.setNombre(nombreModificado);
@@ -122,5 +125,12 @@ public class ControllerProgramaAcademico {
         System.out.println("- Ingresó al método actualizarPersonaParcial del Controller");
         String retorno = "Actualizar Persona Parcial";
         return new ResponseEntity<String>(retorno, HttpStatus.OK);
+    }
+
+    @DeleteMapping(path = "/udea/mintic/borrarPersona/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Boolean> borrarPersona(@PathVariable int id){
+        Persona p = serviceProgramaAcademico.buscarPersona(id);
+        Boolean salida = serviceProgramaAcademico.borrarPersona(p);
+        return new ResponseEntity<Boolean>(Boolean.TRUE, HttpStatus.OK);
     }
 }
