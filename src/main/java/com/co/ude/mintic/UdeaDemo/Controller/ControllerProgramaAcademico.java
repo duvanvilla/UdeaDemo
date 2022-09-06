@@ -107,6 +107,7 @@ public class ControllerProgramaAcademico {
     /*
     Este método buscará una persona por el ID ingresado en la variable id,
     si lo encuentra reemplazará el valor guardado en la variable nombre por el nombreModificado
+    En conclusión: Busca y actualiza una variable
      */
     @PutMapping (path = "/udea/mintic/actualizarPersona", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity <Persona> actualizarPersona(@RequestParam int id, String nombreModificado){
@@ -114,5 +115,12 @@ public class ControllerProgramaAcademico {
         Persona p = serviceProgramaAcademico.buscarPersona(id);
         p.setNombre(nombreModificado);
         return new ResponseEntity<Persona>(p, HttpStatus.OK);
+    }
+
+    @PatchMapping (path = "/udea/mintic/actualizarPersonaParcial", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity <String> actualizarPersonaParcial (){
+        System.out.println("- Ingresó al método actualizarPersonaParcial del Controller");
+        String retorno = "Actualizar Persona Parcial";
+        return new ResponseEntity<String>(retorno, HttpStatus.OK);
     }
 }
