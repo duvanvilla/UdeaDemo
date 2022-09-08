@@ -11,14 +11,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class ServiceProgramaAcademico {
+public class ServicePersona {
 
     @Getter @Setter
     private String nombreProgram;
 
     ArrayList<Persona> listaP;
 
-    public ServiceProgramaAcademico(ArrayList<Persona> listaP) {
+    public ServicePersona(ArrayList<Persona> listaP) {
         this.listaP = listaP;
     }
 
