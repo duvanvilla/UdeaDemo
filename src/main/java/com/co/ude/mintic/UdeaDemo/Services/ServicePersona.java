@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.UnaryOperator;
 
 @Service
 public class ServicePersona {
@@ -59,6 +60,24 @@ public class ServicePersona {
 
         listaP.add(objPersona);
 
+        return Boolean.TRUE;
+    }
+
+    public Boolean modificarPersonaAtributo (int id, Persona persona){
+        //System.out.println("--- Hace uso del método addPersonaAtributo del Service");
+        //System.out.println(persona.getNombre());
+        Persona p = buscarPersona(id);
+        if (persona.getNombre() != null){
+            p.setNombre(persona.getNombre());
+        } if (persona.getApellido() != null){
+            p.setApellido(persona.getApellido());
+        } if (persona.getEdad() != 0){
+            p.setEdad(persona.getEdad());
+        } if (persona.getId() != 0){
+            p.setId(persona.getId());
+        } if (persona.getDoc() != null){
+            p.setDoc(persona.getDoc());
+        }
         return Boolean.TRUE;
     }
 

@@ -65,13 +65,15 @@ public class ControllerPersona {
     // usando el método addPersona y posteriormente el método listar,
     // ambos están en ServiceProgramaAcadémico
     @GetMapping (path = "/udea/mintic/listaPersonas", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ArrayList <Persona> listaPersonas (){
+    public ResponseEntity <ArrayList> listaPersonas (){
         System.out.println("- Ingresó al método listaPersonas del Controller");
         utilidadesComunes.mensaje();
-        return servicePersona.listar();
+        ArrayList p = servicePersona.listar();
+        return new ResponseEntity<ArrayList>(p, HttpStatus.OK);
     }
 
-    // Este endpoint guarda en la variable booleana salida un true porque es lo que retorna el método, eso depende
+    // Este endpoint guarda en la variable booleana salida un true
+    // porque es lo que retorna el método en la clase Services
     @PostMapping (path = "/udea/mintic/crearPersonas", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity <Persona> crearPersona (@RequestBody Persona persona){
         System.out.println("- Ingresó al método crearPersonas Controller");
@@ -138,6 +140,14 @@ public class ControllerPersona {
         Persona p = servicePersona.buscarPersona(id);
         p.setApellido(apellidoModificado);
         return new ResponseEntity<Persona>(p, HttpStatus.OK);
+    }
+
+    // Modificar persona por ID e ingresando nuevo valor de variable por RequestBody
+    @PatchMapping (path = "/udea/mintic/actualizarPersonaAtributo/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Persona> actualizarPersonaAtributo (@PathVariable int id, @RequestBody Persona persona){
+        System.out.println("- Ingresó al método actualizarPersonaAtributo del Controller");
+        servicePersona.modificarPersonaAtributo(id, persona);
+        return new ResponseEntity<Persona>(persona, HttpStatus.OK);
     }
 
     @DeleteMapping(path = "/udea/mintic/borrarPersona/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
